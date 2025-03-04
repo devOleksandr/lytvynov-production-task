@@ -1,1 +1,1 @@
-export {Page as OrderPage} from "./Page"
+export {OrdersPage} from "./components/OrdersPage"
