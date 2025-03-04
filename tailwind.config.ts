@@ -16,7 +16,7 @@ export default {
 				'black-main': '#333333'
 			},
 			fontFamily: {
-				sans: ['var(--font-poppins)', 'sans-serif'], // Use the Poppins font as default
+				sans: ['var(--font-roboto)', 'sans-serif'], // Use the Poppins font as default
 			},
 		},
 		fontSize: {
