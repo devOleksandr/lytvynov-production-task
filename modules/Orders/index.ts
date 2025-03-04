@@ -1,0 +1,1 @@
+export {Page as OrderPage} from "./Page"
