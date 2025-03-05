@@ -82,10 +82,12 @@ export default function OrderDetails() {
 	};
 
 
-	if (orderError) {
-		router.push('/orders');
-		return null;
-	}
+	// useEffect(() => {
+	// 	if (orderError) {
+	// 		router.push('/orders');
+	// 	}
+	// }, [orderError, router]);
+
 
 	if (orderLoading) return <Spinner />;
 

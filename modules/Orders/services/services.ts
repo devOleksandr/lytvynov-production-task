@@ -1,7 +1,7 @@
 import {CartProduct, Order, Product} from "@/modules/Orders/types/types";
 
 export async function fetchOrders(): Promise<Order[]> {
-	const res = await fetch(`${process.env.API_URL}/carts`);
+	const res = await fetch('https://fakestoreapi.com/carts');
 	const carts: Omit<Order, 'status'>[] = await res.json();
 
 	//added random status for each "order" because they carts dont have this field
@@ -13,7 +13,7 @@ export async function fetchOrders(): Promise<Order[]> {
 
 //get order by ID
 export async function fetchOrderById(id: string): Promise<Order> {
-	const res = await fetch(`${process.env.API_URL}/carts/${id}`);
+	const res = await fetch(`https://fakestoreapi.com/carts/${id}`);
 	if (!res.ok) {
 		throw new Error(`Failed to fetch order with id ${id}. Status: ${res.status}`);
 	}
@@ -27,13 +27,13 @@ export async function fetchOrderById(id: string): Promise<Order> {
 
 // get product data by ID
 export async function fetchProductById(productId: number): Promise<Product> {
-	const res = await fetch(`${process.env.API_URL}/products/${productId}`);
+	const res = await fetch(`https://fakestoreapi.com/products/${productId}`);
 	return res.json();
 }
 
 // patch order by ID
 export async function updateOrderById({ id, status, products }: { id: number; status: Order['status']; products: CartProduct[] }): Promise<Order> {
-	const res = await fetch(`${process.env.API_URL}/carts/${id}`, {
+	const res = await fetch(`https://fakestoreapi.com/carts/${id}`, {
 		method: 'PATCH',
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify({
