@@ -1,7 +1,6 @@
 export interface CartProduct {
 	productId: number;
 	quantity: number;
-	title: string
 }
 
 export interface Order {
@@ -10,4 +9,13 @@ export interface Order {
 	date: string;
 	products: CartProduct[];
 	status: 'pending' | 'paid' | 'shipped';
+}
+
+
+export interface Product {
+	id: number;
+	title: string;
+	description: string;
+	price: number;
+	image: string;
 }

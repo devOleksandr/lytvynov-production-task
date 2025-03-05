@@ -1,14 +1,14 @@
 "use client";
 import {useState} from 'react';
-import {useQuery, useMutation, useQueryClient} from '@tanstack/react-query';
+import {useQuery} from '@tanstack/react-query';
 import Link from 'next/link';
-import {fetchOrders, updateOrderStatus} from "@/modules/Orders/services/services";
+import {fetchOrders} from "@/modules/Orders/services/services";
 import {Order} from "@/modules/Orders/types/types";
 import {Pencil} from "lucide-react";
+import {Spinner} from "@/components/UI/Spinner";
 
 
 export default function OrdersList() {
-	const queryClient = useQueryClient();
 	const [filter, setFilter] = useState<string>('all');
 
 	const {data: orders, isLoading, error} = useQuery<Order[]>({
@@ -17,14 +17,7 @@ export default function OrdersList() {
 	});
 
 
-	const mutation = useMutation({
-		mutationFn: updateOrderStatus,
-		onSuccess: () => {
-			queryClient.invalidateQueries({queryKey: ['orders']});
-		},
-	});
-
-	if (isLoading) return <div className="text-center">Завантаження...</div>;
+	if (isLoading) return <Spinner/>
 	if (error) return <div className="text-red-500">Помилка: {(error as Error).message}</div>;
 
 	const filteredOrders = filter === 'all'
@@ -79,7 +72,7 @@ export default function OrdersList() {
 				<span className="text-sm text-gray-500">Всього: {filteredOrders!.length}</span>
 			</div>
 
-			<div className="bg-white  rounded-lg overflow-hidden " >
+			<div className="bg-white  rounded-lg overflow-hidden ">
 				<table className="min-w-full divide-y divide-gray-200 shadow-md">
 					<thead className="bg-gray-50">
 					<tr>
@@ -119,12 +112,8 @@ export default function OrdersList() {
 								{order.products.map((p) => `${p.productId} (x${p.quantity})`).join(', ')}
 							</td>
 							<td className="px-6 py-4 whitespace-nowrap">
-								<select
-									value={order.status}
-									onChange={(e) =>
-										mutation.mutate({id: order.id, status: e.target.value as Order['status']})
-									}
-									className={`border rounded-md p-1 text-xs ${
+								<p
+									className={`rounded-md text-center p-1 text-xs ${
 										order.status === 'pending'
 											? 'bg-yellow-100 text-yellow-800'
 											: order.status === 'paid'
@@ -132,13 +121,12 @@ export default function OrdersList() {
 												: 'bg-blue-100 text-blue-800'
 									}`}
 								>
-									<option value="pending" className="text-xs">Очікує</option>
-									<option value="paid" className="text-xs">Оплачено</option>
-									<option value="shipped" className="text-xs">Відправлено</option>
-								</select>
+									<span>{order.status}</span>
+								</p>
 							</td>
 							<td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-								<Link href={`orders/${order.id}`} className="text-xs flex items-center hover:text-blue-500">
+								<Link href={`orders/${order.id}`}
+								      className="text-xs  inline-flex items-center justify-start hover:text-blue-500 hover:bg-gray-200 rounded-md text-center px-2 py-1 bg-gray-300 text-black-main">
 									<Pencil width={16} height={16} className="mr-2"/>
 									Редагувати
 								</Link>
