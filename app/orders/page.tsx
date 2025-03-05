@@ -1,9 +1,8 @@
 import {OrdersPage} from "@/modules/Orders";
-import {Metadata, ResolvingMetadata} from "next";
+import {Metadata} from "next";
 
-export async function generateMetadata(parent: ResolvingMetadata
-): Promise<Metadata> {
-	return {
+export async function generateMetadata(): Promise<Metadata>{
+return {
 		title: 'Order Manager',
 		keywords: 'any',
 		description: 'Project stack and technology: Next.js,TypeScript,React Query, TailwindCSS, Formik, Yuo',

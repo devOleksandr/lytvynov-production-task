@@ -1,8 +1,7 @@
 import {OrderDetailPage} from "@/modules/Orders";
-import {Metadata, ResolvingMetadata} from "next";
+import {Metadata} from "next";
 
-export async function generateMetadata(parent: ResolvingMetadata
-): Promise<Metadata> {
+export async function generateMetadata(): Promise<Metadata> {
 	return {
 		title: 'Single Order',
 		keywords: 'any',
